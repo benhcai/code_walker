@@ -7,14 +7,26 @@ const initialState = {
   title: "",
   user: "",
   search: "",
+  createSucces: false,
+  chooseSuccess: false,
 };
 
 // https://redux.js.org/tutorials/essentials/part-5-async-logic#checking-thunk-results-in-components
 
-export const fetchProject = createAsyncThunk("project", async (project) => {
+export const fetchProject = createAsyncThunk("project/fetch", async (project) => {
   const res = await fetch(`/api?title=${project}`);
   const json = await res.json();
   return json[0];
+});
+
+export const createProject = createAsyncThunk("project/create", async (text) => {
+  const res = await fetch("/api", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: text, slides: [] }),
+  });
+  const json = await res.json();
+  return json;
 });
 
 export const sendSlides = createAsyncThunk("slides", async (_, thunkAPI) => {
@@ -56,16 +68,40 @@ const projectSlice = createSlice({
       state.slides.push(state.slides[state.slides.length - 1]);
       state.currSlide = state.slides.length - 1;
     },
+    deleteCurrentSlide: (state, action) => {
+      const newSlides = state.slides.filter((_, id) => {
+        return id === state.currSlide ? false : true;
+      });
+      state.slides = newSlides;
+    },
+    goToSlide: (state, action) => {
+      state.currSlide = action.payload;
+    },
   },
   extraReducers(builder) {
-    builder.addCase(fetchProject.fulfilled, (state, action) => {
-      state.status = "success";
-      state.title = action.payload.title;
-      state.slides = action.payload.slides;
-    });
+    builder
+      .addCase(fetchProject.fulfilled, (state, action) => {
+        state.status = "success";
+        state.title = action.payload.title;
+        state.slides = action.payload.slides;
+        state.chooseSuccess = true;
+      })
+      .addCase(createProject.fulfilled, (state, action) => {
+        const { slides, title } = action.payload;
+        state.slides = slides;
+        state.title = title;
+        state.currSlide = 0;
+      });
   },
 });
 
-export const { setSearch, setProject, setCurrSlide, editCurrentSlide, addSlide } =
-  projectSlice.actions;
+export const {
+  setSearch,
+  setProject,
+  setCurrSlide,
+  editCurrentSlide,
+  addSlide,
+  deleteCurrentSlide,
+  goToSlide,
+} = projectSlice.actions;
 export default projectSlice.reducer;

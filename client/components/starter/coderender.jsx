@@ -8,7 +8,7 @@ const Code = styled.code`
   font-size: 1.4rem;
 `;
 
-const CodeRender = () => {
+const CodeRender = ({ className }) => {
   const { slides, currSlide } = useSelector((state) => state.projects);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const CodeRender = () => {
   }, [slides, currSlide]);
 
   return (
-    <div>
+    <div className={className}>
       <pre>
         <Code className="language-javascript">{slides[currSlide]}</Code>
       </pre>
@@ -24,4 +24,8 @@ const CodeRender = () => {
   );
 };
 
-export default CodeRender;
+const StyledCodeRenderer = styled(CodeRender)`
+  width: 90%;
+`;
+
+export default StyledCodeRenderer;

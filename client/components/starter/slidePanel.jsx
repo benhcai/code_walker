@@ -1,19 +1,32 @@
-import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { goToSlide } from "../project/projectSlice";
 
 const SlideBlock = styled.div`
   background-color: ${(props) => (props.active ? "blue" : "")};
   padding: 0 1rem;
   border-radius: 4px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const SlidePanel = ({ className }) => {
   const { slides, currSlide } = useSelector((state) => state.projects);
+  const dispatch = useDispatch();
+  const handleClick = (id) => {
+    dispatch(goToSlide(id));
+  };
+
   return (
     <div className={className}>
       {slides.map((block, id) => (
-        <SlideBlock key={id} active={currSlide === id}>{`${id}`}</SlideBlock>
+        <SlideBlock
+          onClick={() => handleClick(id)}
+          key={id}
+          active={currSlide === id}
+        >{`${id}`}</SlideBlock>
       ))}
     </div>
   );

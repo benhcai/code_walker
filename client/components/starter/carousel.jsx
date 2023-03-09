@@ -3,13 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import CodeRender from "./coderender";
-import { setCurrSlide, editCurrentSlide, sendSlides, addSlide } from "../project/projectSlice.js";
+import {
+  setCurrSlide,
+  editCurrentSlide,
+  sendSlides,
+  addSlide,
+  deleteCurrentSlide,
+} from "../project/projectSlice.js";
 
 const TextArea = styled.textarea`
-  background-color: rgb(23, 24, 31);
+  background-color: rgb(57, 60, 64);
   color: rgb(156, 169, 189);
   font-size: 0.8rem;
   border-radius: 4px;
+  padding: 8px;
+  border: none;
+  width: 80%;
 `;
 
 const Controls = styled.div`
@@ -20,7 +29,14 @@ const Controls = styled.div`
   gap: 1rem;
 `;
 
-const Button = styled.button``;
+const Button = styled.div`
+  background-color: blue;
+  border-radius: 4px;
+  padding: 0.5rem;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Carousel = ({ className }) => {
   const dispatch = useDispatch();
@@ -45,21 +61,26 @@ const Carousel = ({ className }) => {
     dispatch(addSlide());
   };
 
+  const handleDeleteSlide = () => {
+    dispatch(deleteCurrentSlide());
+  };
+
   console.log("start", slides[currSlide]);
   return (
     <div className={className}>
       <Controls>
-        <div onClick={handleLeft}>{"<--"}</div>
-        <div onClick={handleSave}>{"Save"}</div>
-        <div onClick={handleAddSlide}>{"Add"}</div>
-        <div onClick={handleRight}>{"-->"}</div>
+        <Button onClick={handleLeft}>{"<--"}</Button>
+        <Button onClick={handleSave}>{"Save"}</Button>
+        <Button onClick={handleAddSlide}>{"Add"}</Button>
+        <Button onClick={handleDeleteSlide}>{"Delete"}</Button>
+        <Button onClick={handleRight}>{"-->"}</Button>
       </Controls>
       <CodeRender />
       <TextArea
         name=""
         id=""
         cols="30"
-        rows="10"
+        rows="7"
         onChange={(e) => handleChange(e.target.value)}
         value={slides[currSlide]}
       ></TextArea>
@@ -70,6 +91,7 @@ const Carousel = ({ className }) => {
 const StyledCarousel = styled(Carousel)`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export default StyledCarousel;
