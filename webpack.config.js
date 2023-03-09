@@ -1,26 +1,21 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
+
 module.exports = {
+  mode: "development",
   entry: path.join(__dirname, "client", "index.js"),
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "index.js",
+    filename: "bundle.js",
   },
-  mode: "development",
-  plugins: [new HtmlWebpackPlugin({ title: "Code Walky", template: "./index.html" })],
   module: {
     rules: [
       {
-        test: /\.jsx?/i,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: [
-              ["@babel/preset-env", { targets: "defaults" }],
-              ["@babel/preset-react", { runtime: "automatic" }],
-            ],
-          },
         },
       },
       {
@@ -29,4 +24,17 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "public"),
+      publicPath: "/",
+    },
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
+  resolve: {
+    extensions: [".js", ".jsx"],
+  },
+  plugins: [new HtmlWebpackPlugin({ title: "Code Walker", template: "./public/index.html" })],
 };
