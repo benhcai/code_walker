@@ -92,7 +92,7 @@ function Starter({ className }) {
   const state = useSelector((state) => state.projects);
 
   useEffect(() => {
-    if (state.slides.length === 0) dispatch(fetchProject("walkthrough"));
+    if (state.slides.length === 0) dispatch(fetchProject("test"));
   }, []);
 
   return (

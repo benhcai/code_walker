@@ -72,6 +72,9 @@ const projectSlice = createSlice({
       const newSlides = state.slides.filter((_, id) => {
         return id === state.currSlide ? false : true;
       });
+      if (state.currSlide > 0) {
+        state.currSlide = state.currSlide - 1;
+      }
       state.slides = newSlides;
     },
     goToSlide: (state, action) => {

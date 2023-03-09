@@ -6,7 +6,7 @@ import styled from "styled-components";
 function App({ className }) {
   return (
     <div className={className}>
-      <h1>Code Walker</h1>
+      <h1>CODE WALKA</h1>
       <Starter></Starter>
     </div>
   );

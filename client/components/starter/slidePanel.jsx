@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { goToSlide } from "../project/projectSlice";
 
 const SlideBlock = styled.div`
-  background-color: ${(props) => (props.active ? "blue" : "")};
-  padding: 0 1rem;
+  background-color: ${(props) => (props.active ? "rgb(33,123,183)" : "")};
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   &:hover {
     cursor: pointer;
@@ -38,7 +38,9 @@ const StyledSlidePanel = styled(SlidePanel)`
   background-color: rgb(24, 25, 27);
   color: white;
   justify-content: space-around;
-  height: 2rem;
+  min-height: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   align-items: center;
   font-size: 1rem;
   border-radius: 8px;

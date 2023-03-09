@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { FaSave, FaPlus, FaArrowLeft, FaArrowRight, FaTrash } from "react-icons/fa";
 
 import CodeRender from "./coderender";
 import {
@@ -30,7 +31,8 @@ const Controls = styled.div`
 `;
 
 const Button = styled.div`
-  background-color: blue;
+  background-color: rgb(33, 123, 183);
+  color: white;
   border-radius: 4px;
   padding: 0.5rem;
   &:hover {
@@ -69,11 +71,21 @@ const Carousel = ({ className }) => {
   return (
     <div className={className}>
       <Controls>
-        <Button onClick={handleLeft}>{"<--"}</Button>
-        <Button onClick={handleSave}>{"Save"}</Button>
-        <Button onClick={handleAddSlide}>{"Add"}</Button>
-        <Button onClick={handleDeleteSlide}>{"Delete"}</Button>
-        <Button onClick={handleRight}>{"-->"}</Button>
+        <Button onClick={handleLeft}>
+          <FaArrowLeft />
+        </Button>
+        <Button onClick={handleSave}>
+          <FaSave />
+        </Button>
+        <Button onClick={handleAddSlide}>
+          <FaPlus />
+        </Button>
+        <Button onClick={handleDeleteSlide}>
+          <FaTrash />
+        </Button>
+        <Button onClick={handleRight}>
+          <FaArrowRight />
+        </Button>
       </Controls>
       <CodeRender />
       <TextArea

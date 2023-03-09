@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+
 body {
   background-color: rgb(32, 35, 39);
   color: rgb(204, 204, 204);
+  font-family: "Open Sans", sans-serif;
 }
