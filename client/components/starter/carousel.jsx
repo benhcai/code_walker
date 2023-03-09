@@ -92,6 +92,7 @@ const StyledCarousel = styled(Carousel)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 export default StyledCarousel;

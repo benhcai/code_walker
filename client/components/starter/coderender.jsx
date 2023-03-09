@@ -25,7 +25,7 @@ const CodeRender = ({ className }) => {
 };
 
 const StyledCodeRenderer = styled(CodeRender)`
-  width: 90%;
+  width: 100%;
 `;
 
 export default StyledCodeRenderer;

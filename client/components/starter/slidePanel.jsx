@@ -42,6 +42,7 @@ const StyledSlidePanel = styled(SlidePanel)`
   align-items: center;
   font-size: 1rem;
   border-radius: 8px;
+  width: 100%;
 `;
 
 export default StyledSlidePanel;

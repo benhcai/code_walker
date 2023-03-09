@@ -14,13 +14,17 @@ const Label = styled.label`
 `;
 
 const LabelName = styled.p`
-  color: rgb(179, 177, 177)
+  color: rgb(179, 177, 177);
   margin: 0;
 `;
 
 const Input = styled.input`
   background-color: rgb(57, 60, 64);
   color: rgb(199, 198, 201);
+`;
+
+const FormDiv = styled.div`
+  width: 100%;
 `;
 
 const GetProjectForm = (name) => {
@@ -37,14 +41,14 @@ const GetProjectForm = (name) => {
   };
 
   return (
-    <div>
+    <FormDiv>
       <form onSubmit={(e) => handleSubmit(e)}>
         <Label>
           <LabelName>Choose project</LabelName>
           <Input type="text" onChange={(e) => handleChange(e.target.value)} />
         </Label>
       </form>
-    </div>
+    </FormDiv>
   );
 };
 
@@ -56,17 +60,10 @@ const CreateProjectForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const res = await fetch("/api", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ title: text, slides: [] }),
-    // });
-    // const json = await res.json();
-    // const { slides, title } = json;
     dispatch(createProject(text));
   };
   return (
-    <div>
+    <FormDiv>
       <form onSubmit={handleSubmit}>
         <Label>
           <LabelName>Create new project</LabelName>
@@ -78,9 +75,17 @@ const CreateProjectForm = () => {
           />
         </Label>
       </form>
-    </div>
+    </FormDiv>
   );
 };
+
+const FormsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  align-items center;
+  gap: 8px;
+`;
 
 function Starter({ className }) {
   const dispatch = useDispatch();
@@ -93,8 +98,10 @@ function Starter({ className }) {
   return (
     <div className={className}>
       <h2>{state.status === "idle" ? "Loading..." : <em>{state.title}</em>}</h2>
-      <CreateProjectForm />
-      <GetProjectForm />
+      <FormsContainer>
+        <CreateProjectForm />
+        <GetProjectForm />
+      </FormsContainer>
       <br />
       <SlidePanel />
       <br />
@@ -106,7 +113,9 @@ function Starter({ className }) {
 const StyledStarter = styled(Starter)`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
+  width: 90vw;
+  align-items: center;
 `;
 
 export default StyledStarter;
